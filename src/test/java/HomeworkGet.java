@@ -6,7 +6,7 @@ import static io.restassured.RestAssured.given;
 
 public class HomeworkGet {
 
-    @Test
+    @Test //looks good
     public void CheckCityID4() {
 
         //1- Verify user with id=4 lives in South Elvis city.
@@ -16,6 +16,8 @@ public class HomeworkGet {
 
     @Test
     public void CheckUserInfo() {
+        //the equals method returns a boolean and doesn't assert anything.
+        //also you don't need 2 loops.
         //2-Verify name, email and username for each user.
            //2-1 Verify names
         String[] names = {"Leanne Graham", "Ervin Howell", "Clementine Bauch", "Patricia Lebsack", "Chelsey Dietrich", "Mrs. Dennis Schulist",
@@ -48,7 +50,7 @@ public class HomeworkGet {
         }
     }
 
-    @Test
+    @Test // you can access the only the company name by using company.name in your path.
     public void CheckCompany(){
       //3- Verify company name for Leanne Graham
       String company="[{name=Romaguera-Crona, catchPhrase=Multi-layered client-server neural-net, bs=harness real-time e-markets}]";
@@ -57,7 +59,7 @@ public class HomeworkGet {
         Assertions.assertEquals(company, companyactual);
     }
 
-    @Test
+    @Test // looks good
     public void CheckCatch(){
       //4-Verify catch phrase for Deckow-Crist company
 
@@ -66,7 +68,7 @@ public class HomeworkGet {
                 then().extract().path("company.catchPhrase").toString();
         Assertions.assertEquals(cphrase,cphraseactual);
     }
-    @Test
+    @Test //looks good
     public void CheckWebsite(){
        //5-Verify website for user with id=3
         String website="[ramiro.info]";
@@ -74,7 +76,7 @@ public class HomeworkGet {
                 then().extract().path("website").toString();
         Assertions.assertEquals(website,websiteactual);
     }
-    @Test
+    @Test//looks good
     public void CheckZipLanLat(){
         //6-Verify zipcode, lng and lat for Ervin Howell
         //6-1 zipcode
@@ -82,7 +84,7 @@ public class HomeworkGet {
                 then().extract().path("address.zipcode").toString();
         Assertions.assertEquals("[90566-7771]",zip);
 
-        //6-2 lng lat
+        //6-2 lng lat you need to go all the way to lng and lat something like "address.geo.lat"
         String lnglat="[{lat=-43.9509, lng=-34.4618}]";
         String ll= given().queryParam("name", "Ervin Howell").when().get("https://jsonplaceholder.typicode.com/users").
                 then().extract().path("address.geo").toString();
